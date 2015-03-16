@@ -192,8 +192,8 @@ var shinyFiles = (function() {
 		var back = $(button).data('back') || [];
 		var forward = $(button).data('forward') || [];
 		var view = $(button).data('view') || '';
-		var sort = $(button).data('sort') || 'Name';
-		var sortDir = $(button).data('sortDir') || 'ascending';
+		var sort = $(button).data('sortby') || 'Name';
+		var sortDir = $(button).data('sortdirection') || 'ascending';
 		
 		$(button).data('back', back)
 			.data('forward', forward)
@@ -732,6 +732,10 @@ var shinyFiles = (function() {
 		toggleSelectButton(modal, folder_select);
 		
 		modal.data('currentData', data);
+        
+        // re-sort the files according to the user selected sorting options
+    	sortFiles(modal, $(element).data('sort'), $(element).data('sortDir'));
+        
 		$(modal).trigger('change');
 	};
 	

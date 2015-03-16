@@ -4,7 +4,9 @@
 \alias{shinyFilesButton}
 \title{Create a button to summon the file system navigator}
 \usage{
-shinyFilesButton(id, label, title, multiple, folder_select = FALSE)
+shinyFilesButton(id, label, title, multiple, folder_select = FALSE,
+  sort_by = c("Name", "Type", "Size", "Created", "Modified"),
+  ascending = TRUE)
 }
 \arguments{
 \item{id}{The id matching the \code{\link{shinyFileChoose}}}
@@ -21,6 +23,13 @@ select multiple files}
 a folder in the file system navigator as the selection (default FALSE). If
 folder_select = TRUE in combination with multiple = TRUE, multiple folders as
 well as a mix of folders and files are permissible selections.}
+
+\item{sort_by}{Defines what attribute the file list should be sorted by initially
+(the user can change it on the fly within the dialog afterwards). The options are
+"Name", "Type", "Size", "Created" and "Modified". Defaults to "Name".}
+
+\item{ascending}{A logical indicating whether sorting should be ascending (TRUE) or
+descending (FALSE). Defaults to sorting in "ascending" order.}
 }
 \description{
 This function adds the required html markup for the client to access the file
@@ -45,13 +54,16 @@ a call to \code{\link{parseFilePaths}} for a more beautiful output.
 For users wanting to design their html markup manually it is very easy to add
 a shinyFiles button. The only markup required is:
 
-\code{<button id="inputId" type="button" class="shinyFiles btn" data-title="title" data-selecttype="single"|"multiple" data-folderselect="allowed"|"forbidden">label</button>}
+\code{<button id="inputId" type="button" class="shinyFiles btn" data-title="title" data-selecttype="single"|"multiple" data-folderselect="allowed"|"forbidden" data-sortby="Name"|"Type"|"Size"|"Created"|"Modified" data-sortdirection="ascending"|"descending">label</button>}
 
 where the id tag matches the inputId parameter, the data-title tag matches
 the title parameter, the data-selecttype is either "single" or "multiple" (
 the non-logical form of the multiple parameter), the data-folderselect is
 either "allowed" or "forbidden" (non-logical form of the folder_select
-parameter) and the internal textnode matches the label parameter.
+parameter), the data-sortby defines the attribute to sort by ("Name",
+"Type", "Size", "Created" or "Modified"), the data-sortdirection the
+sorting direction ("ascending" or "descending") and the internal textnode
+matches the label parameter.
 
 Apart from this the html document should link to a script with the
 following path 'sF/shinyFiles.js' and a stylesheet with the following path
